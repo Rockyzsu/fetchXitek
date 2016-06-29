@@ -19,6 +19,7 @@ class Xitek():
         data=StringIO.StringIO(content)
         gzipper = gzip.GzipFile(fileobj=data)
         html=gzipper.read()
+        print html
         return html
 
     def __getContentNoZip(self,url):
@@ -31,6 +32,7 @@ class Xitek():
         #data=StringIO.StringIO(content)
         #gzipper = gzip.GzipFile(fileobj=data)
         #html=gzipper.read()
+        print content
         return content
 
 
@@ -42,11 +44,11 @@ class Xitek():
         return  int(last_page)
 
     def __download(self,url):
-        p=re.compile('photoid')
-        html=self.__getContentNoZip(url)
+        p=re.compile(r'photoid')
+        html=self.__getContent(url)
         #print html
         bs=BeautifulSoup(html,"html.parser")
-        #print bs.title
+        print bs.title
         element_link=bs.find_all('div',class_="element")
         print len(element_link)
         k=1
@@ -65,9 +67,10 @@ class Xitek():
                 if t==0:
                     #print k
                     link=i['href']
+                    print link
                     if p.findall(link):
                         full_path=self.url[0:len(self.url)-1]+link
-                        sub_html=self.__getContentNoZip(full_path)
+                        sub_html=self.__getContent(full_path)
                         bs=BeautifulSoup(sub_html,"html.parser")
                         final_link=bs.find('img',class_="mimg")['src']
                         #time.sleep(2*random.random())
@@ -101,6 +104,7 @@ class Xitek():
             #time.sleep(1)
             self.__download(url)
         '''
+
         url="http://photo.xitek.com/style/0/p/0"
         self.__download(url)
         '''
