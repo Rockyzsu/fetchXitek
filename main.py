@@ -1,5 +1,5 @@
 #-*-coding=utf-8-*-
-__author__ = 'rocchen'
+__author__ = 'rocky chen'
 from bs4 import BeautifulSoup
 import urllib2,sys,StringIO,gzip,time,random,re,urllib,os
 reload(sys)
