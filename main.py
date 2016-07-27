@@ -50,15 +50,28 @@ class Xitek():
             photoid=self.__getContentAuto(self.url+i)
             bs=BeautifulSoup(photoid,"html.parser")
             final_link=bs.find('img',class_="mimg")['src']
-            print final_link
+            #print final_link
             #pic_stream=self.__getContentAuto(final_link)
             title=bs.title.string.strip()
             filename = re.sub('[\/:*?"<>|]', '-', title)
             filename=filename+'.jpg'
-            urllib.urlretrieve(final_link,filename)
-            #f=open(filename,'w')
-            #f.write(pic_stream)
-            #f.close()
+            try:
+                print filename
+                print final_link
+                urllib.urlretrieve(final_link,filename)
+                time.sleep(5)
+            except :
+                pass
+                print "download file fail"
+            '''
+            photo_req=urllib2.Request(final_link,headers=self.headers)
+            photo_resp=urllib2.urlopen(photo_req)
+            pic_stream=photo_resp.read()
+            time.sleep(5)
+            f=open(filename,'wb')
+            f.write(pic_stream)
+            f.close()
+            '''
         #print html
         #bs=BeautifulSoup(html,"html.parser")
         #content=bs.find_all(p)
